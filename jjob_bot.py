@@ -1,11 +1,10 @@
 from slacker import Slacker
 import websocket
 import json
-
 import urllib.request
 from bs4 import BeautifulSoup
-
-slack = Slacker('xoxb-502213453520-507527209730-VzzPkJwu1GyClAlfKzuaDj3m')
+from slacker_token import my_token
+slack = Slacker(my_token)
 
 jeonghyun_bot_id = 'UEXFH65MG'
 jobkorea_url = "http://www.jobkorea.co.kr"
@@ -143,7 +142,7 @@ def bot_run(text, channel):
     else:
         send_jobkorea_info(text, channel)
 
-def run():
+def app_run():
 
     res = slack.rtm.connect()
     endpoint = res.body['url']
@@ -178,5 +177,5 @@ def run():
     ws.close()
 
 if __name__ == '__main__':
-    run()
+    app_run()
 
