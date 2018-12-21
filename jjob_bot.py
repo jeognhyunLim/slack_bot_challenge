@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from slacker_token import my_token
 slack = Slacker(my_token)
 
-jeonghyun_bot_id = 'UEXFH65MG'
+jjob_bot_id = 'UEXFH65MG'
 jobkorea_url = "http://www.jobkorea.co.kr"
 default_url = "http://www.jobkorea.co.kr/starter/"
 
@@ -24,11 +24,11 @@ def jobkorea_crawler(url):
     soup = BeautifulSoup(sourcecode, "html.parser")
 
     list = soup.find("ul", class_="filterList")
-    noSelect = list.find("li" , class_="scNoSelect")
+    noSelect = list.find("li", class_="scNoSelect")
 
     info_list = []
 
-    #검색 결과가 없는경우 빈 리스트 반환
+    # 검색 결과가 없는경우 빈 리스트 반환
     if noSelect :
         return info_list
 
@@ -53,19 +53,19 @@ def send_init_message(channel):
 
     attachments_dict = dict()
     attachments_dict["color"] = "#00FF00"
-    attachments_dict["author_name"] = "jeonghyun_bot 사용법"
-    attachments_dict['pretext'] = "안녕하세요 jeonhyun_bot 입니다. IT 채용 정보를 검색해드립니다"
+    attachments_dict["author_name"] = "jjob_bot 사용법"
+    attachments_dict['pretext'] = "안녕하세요, jjob_bot 입니다. IT 채용 정보를 검색해드립니다"
     attachments_dict['fallback'] = "확인하세요"
     attachments_dict['footer'] = "contact @jeonghyun"
     attachments_dict['text'] = "\n*[지역]* :  서울 | 경기 | 인천 | 대전 | 세종 | 충남 | 충북 | 광주 | 전남 | 전북 | 대구 | 경북 | 부산 | 울산 | 경남 | 강원 | 제주" \
                                "\n *[고용]* : 정규직 | 인턴 | 전환형 | 계약직" \
                                "\n *[정렬]* : 마감순 | 등록순" \
-                               "\n\n *예시 >> @jeonghyun_bot 서울 정규직 마감순*" \
-                               "\n\t\t\t  *@jeonghyun_bot 서울 경기 인턴* "
+                               "\n\n *예시 >> @jjob_bot 서울 정규직 마감순*" \
+                               "\n\t\t\t  *@jjob_bot 서울 경기 인턴* "
     attachments_dict['mrkdwn_in'] = ["text", "pretext"]  # 마크다운을 적용시킬 인자들을 선택합니다.
     attachments = [attachments_dict]
 
-    slack.chat.post_message(text=None, channel=channel, username='jeonghyun_bot', attachments=attachments)
+    slack.chat.post_message(text=None, channel=channel, username='jjob_bot', attachments=attachments)
 
 # 잡코리아에서 정보 얻어오기
 def send_jobkorea_info(text, channel):
@@ -108,7 +108,7 @@ def send_jobkorea_info(text, channel):
         attachments_dict["color"] ="#FF0000"
         attachments_dict["text"] = "*검색 결과가 없습니다 ㅠ.ㅠ*"
         attachments = [attachments_dict]
-        slack.chat.post_message( channel=channel, username='jeonghyun_bot', attachments=attachments)
+        slack.chat.post_message( channel=channel, username='jjob_bot', attachments=attachments)
         return
 
     for dic in info_dic_list[0:5]:
@@ -122,7 +122,7 @@ def send_jobkorea_info(text, channel):
         attachments_dict['mrkdwn_in'] = ["text", "pretext"]  # 마크다운을 적용시킬 인자들을 선택합니다.
         attachments = [attachments_dict]
 
-        slack.chat.post_message(text=None, channel=channel, username='jeonghyun_bot', attachments=attachments)
+        slack.chat.post_message(text=None, channel=channel, username='jjob_bot', attachments=attachments)
     # 잡코리아 사이트 연결 버튼
     if len(info_dic_list) > 5 :
         attachments_dict = { "text": "Do you want to more infomation?",
@@ -133,7 +133,7 @@ def send_jobkorea_info(text, channel):
                                            "style": "danger",
                                            "url": search_url},
                                          ]}
-        slack.chat.post_message(text=None, channel=channel, username='jeonghyun_bot', attachments=[attachments_dict])
+        slack.chat.post_message(text=None, channel=channel, username='jjob_bot', attachments=[attachments_dict])
 
 def bot_run(text, channel):
 
@@ -158,7 +158,7 @@ def app_run():
                 text = msg["text"]
                 try:
                     bot_id = text.split()[0].replace("<@", "").replace(">","")
-                    if bot_id == jeonghyun_bot_id:
+                    if bot_id == jjob_bot_id:
                         bot_run(text.replace(text.split()[0], "").strip(), msg["channel"])
                 except:
                     pass
