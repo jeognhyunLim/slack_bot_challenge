@@ -5,7 +5,8 @@ import json
 import urllib.request
 from bs4 import BeautifulSoup
 
-slack = Slacker('xoxb-502213453520-507527209730-gMHueE9oQogj6OrRX2Chiqs2')
+slack = Slacker('xoxb-502213453520-507527209730-VzzPkJwu1GyClAlfKzuaDj3m')
+
 jeonghyun_bot_id = 'UEXFH65MG'
 jobkorea_url = "http://www.jobkorea.co.kr"
 default_url = "http://www.jobkorea.co.kr/starter/"
